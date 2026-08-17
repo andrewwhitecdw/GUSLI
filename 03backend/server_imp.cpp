@@ -232,7 +232,7 @@ void srvr_imp::__clnt_on_io_receive(const MGMT::msg_content &msg, const connect_
 		static constexpr const int n_max_batch_size = io_csring::CAPACITY;
 		backend_io_executor *arr[n_max_batch_size];
 		do {
-			BUG_ON(n_ios > n_max_batch_size, "Impossible: %d > %d\n", n_ios , n_max_batch_size);
+			BUG_ON(n_ios >= n_max_batch_size, "Impossible: %d >= %d\n", n_ios , n_max_batch_size);
 			arr[n_ios] = new backend_io_executor(addr, *this);
 			should_continue = arr[n_ios]->has_io_to_do();
 			n_ios++;
