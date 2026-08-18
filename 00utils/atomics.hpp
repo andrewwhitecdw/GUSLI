@@ -122,7 +122,7 @@ class completion_t {		// Completion
 	void wait(void) {    _t("wait");  ASSERT_IN_PRODUCTION(sem_wait(&s) == 0); _t("unblock"); }
 	void done(void) {    _t("done");  ASSERT_IN_PRODUCTION(sem_post(&s) == 0); }
 	void reset(void) {   _t("reset"); ASSERT_IN_PRODUCTION(sem_init(&s, 0, 0) == 0); }	// In case you dont rely on constructor/destructor and reuse the completion
-	bool is_done(void) { _t("is_don"); return sem_trywait(&s); }
+	bool is_done(void) { _t("is_don"); return (sem_trywait(&s) == 0); }
 	~completion_t() {    _t("des");    sem_destroy(&s); }
 };
 
